@@ -24,8 +24,14 @@ local function convert(menu)
         if button.isMenuHeader and not new_context.title and not button.txt then
             new_context.title = button.header
             new_context.icon = icon
+        elseif v.isMenuHeader then
+            options[#options + 1] = {
+                title = v.header,
+                description = v.txt,
+                icon = icon,
+            }
         else
-            if button.isMenuHeader then goto continue end
+            -- if button.isMenuHeader then goto continue end
             options[#options+1] = {
                 title = title,
                 disabled = button.disabled or false,
