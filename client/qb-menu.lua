@@ -14,9 +14,10 @@ local function convert(menu)
     local options = {}
     for _,button in pairs(menu) do
         if button.hidden then goto continue end
-        local isServer, event, serverEvent, icon, title, description = button.params?.isServer or false, nil, nil, nil, nil, nil
+        local isServer, event, serverEvent, icon, title, description, image = button.params?.isServer or false, nil, nil, nil, nil, nil, nil
         if isServer then serverEvent = button.params?.event or '' else event = button.params?.event or '' end
-        if QBCore.Shared.Items[button.icon] then icon = ("nui://%s/html/images/%s"):format(Config.InventoryName, QBCore.Shared.Items[tostring(button.icon)].image) else icon = button.icon or nil end
+        if button.image then image = button.image end
+        if QBCore.Shared.Items[button.icon] then icon = ("nui://%s/web/images/%s"):format(Config.InventoryName, QBCore.Shared.Items[tostring(button.icon)].image) else icon = button.icon or nil end
         if ConvertText(button.header) then title = ConvertText(button.header) description = ConvertText(button.txt) end
         if not ConvertText(button.header) and ConvertText(button.txt) then title = ConvertText(button.txt) description = nil end
         if not ConvertText(button.header) and not ConvertText(button.txt) then title = ' ' description = nil end
@@ -37,6 +38,7 @@ local function convert(menu)
                 disabled = button.disabled or false,
                 onSelect = button.action or nil,
                 icon = icon,
+                image = image,
                 arrow = button.subMenu or false,
                 description = description,
                 event = event,
@@ -47,7 +49,7 @@ local function convert(menu)
         ::continue::
     end
     if not new_context.title then
-        new_context.title = ConvertText(menu.title) or 'Stax Menu'
+        new_context.title = ConvertText(menu.title) or 'Mystic Menu'
     end
 
     new_context.options = options
