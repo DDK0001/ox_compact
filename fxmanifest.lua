@@ -15,3 +15,4 @@ shared_scripts {
 
 provide 'qb-menu'
 provide 'qb-input'
+provide 'qb-target'
